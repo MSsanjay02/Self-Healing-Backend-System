@@ -1,6 +1,9 @@
 import time
 import psutil
+import requests
 from datetime import datetime
+
+BACKEND_URL = "http://localhost:8000/metrics"
 
 
 def get_system_metrics():
@@ -11,16 +14,33 @@ def get_system_metrics():
     return cpu_usage, memory_usage
 
 
+def create_payload(cpu, memory):
+    return {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "cpu_usage": cpu,
+        "memory_usage": memory
+    }
+
+
+def send_metrics(payload):
+    try:
+        response = requests.post(BACKEND_URL, json=payload)
+        print(f"Sent data | Status Code: {response.status_code}")
+    except Exception as e:
+        print(f"Error sending data: {e}")
+
+
 def main():
-    print("Starting System Monitoring Agent...\n")
+    print("System Monitoring Agent started...\n")
 
     while True:
         cpu, memory = get_system_metrics()
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        payload = create_payload(cpu, memory)
 
-        print(f"{timestamp} | CPU Usage: {cpu}% | Memory Usage: {memory}%")
+        print(payload)
+        send_metrics(payload)
 
-        time.sleep(0.1)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
