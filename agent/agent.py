@@ -26,6 +26,12 @@ def send_metrics(payload):
     try:
         response = requests.post(BACKEND_URL, json=payload)
         print(f"Sent data | Status Code: {response.status_code}")
+
+        if response.headers.get("content-type", "").startswith("application/json"):
+            print("Backend response:", response.json())
+        else:
+            print("Backend response (non-JSON):", response.text[:200])
+
     except Exception as e:
         print(f"Error sending data: {e}")
 
@@ -36,11 +42,13 @@ def main():
     while True:
         cpu, memory = get_system_metrics()
         payload = create_payload(cpu, memory)
+        payload["memory_usage"] = 5.0 
+
 
         print(payload)
         send_metrics(payload)
 
-        time.sleep(5)
+        time.sleep(1)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from datetime import datetime
 from database import Base
+from sqlalchemy import Boolean
 
 
 class MetricsDB(Base):
@@ -15,3 +16,6 @@ class MetricsDB(Base):
     system_name = Column(String, default="windows-machine")
 
     server_received_time = Column(DateTime, default=datetime.utcnow)
+    anomaly_score = Column(Float, nullable=True)
+    is_anomaly = Column(Boolean, default=False)
+
