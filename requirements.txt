@@ -7,3 +7,5 @@ psycopg2-binary
 scikit-learn
 pandas
 numpy
+sqlalchemy
+psycopg2-binary
