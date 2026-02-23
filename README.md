@@ -178,14 +178,6 @@ Computer Science Student | Backend & Systems Enthusiast
 
 ---
 
-# 3️⃣ WHY THIS README IS IMPORTANT (DON’T SKIP)
-
-This README shows:
-
-* ✅ You understand the **problem**
-* ✅ You designed a **system**
-* ✅ You can **explain engineering clearly**
-* ✅ You think like a **product builder**
 
 
 
